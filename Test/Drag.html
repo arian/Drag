@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Test</title>
+
+<script src="mootools.js" type="text/javascript"></script>
+<script src="../Source/Drag.js" type="text/javascript"></script>
+<script src="../Source/Drag.Move.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<h1>MooTools Test</h1>
+
+<div id="debug"></div>
+
+<div style="height: 330px">
+	<div id="test" style="position: absolute; width: 300px; height: 250px; background: red; padding: 20px;">hello</div>
+</div>
+
+<div style="height: 330px">
+	<div id="test2" style="width: 300px; height: 250px; background: blue; padding: 20px;">hello</div>
+</div>
+
+
+<div style="height: 330px">
+	<div id="test3" style="width: 300px; height: 250px; background: magenta; padding: 20px;">hello</div>
+	<div id="handle3" style="width: 340px; height: 20px; background: green">handle</div>
+</div>
+
+<script>
+
+new Drag('test', {
+	onSnap: function(){
+		console.log('snap');
+	},
+	onDrag: function(el, event, delta, orig, distance, traveled){
+		console.log('drag', delta.x, delta.y);
+		$('debug').set('text', 'traveled: ' + traveled);
+	}
+});
+
+new Drag.Move('test2', {
+	limit: {
+		x: [0, 300]
+	},
+	grid: {
+		x: 80,
+		y: 40
+	}
+});
+
+
+var begin = $('test3').getStyle('height').toInt();
+new Drag.Move('handle3', {
+	limit: {
+		y: [begin * -1, false]
+	},
+	modifiers: {
+		x: false
+	},
+	invert: true,
+	onDrag: function(el, event, delta){
+		console.log(delta.y);
+		$('test3').setStyle('height', begin + delta.y);
+	}
+});
+
+</script>
+
+</body>
+</html>
