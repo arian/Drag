@@ -1,15 +1,15 @@
-name: "arian-Fx"
+name: "Drag"
 
-exports: "Fx.js"
+exports: "Drag.js"
 
-description: "Other Fx implementation for MooTools"
+description: "Another Drag implementation for MooTools"
 
 license: "[MIT License](http://mootools.net/license.txt)"
 
 authors: "Arian Stolwijk"
 
 sources:
-  - "Source/Fx/Fx.js"
-  - "Source/Fx/Fx.Morph.js"
-  - "Source/Fx/Fx.Equations.js"
+  - "Source/Drag.js"
+  - "Source/Drag.Move.js"
+  - "Source/Drag.Drop.js"
 
