@@ -147,3 +147,4 @@ var Drag = new Class({
 	}
 
 });
+

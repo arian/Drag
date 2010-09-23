@@ -17,18 +17,7 @@ Drag.Move = new Class({
 		element = this.element;
 
 		// Make the element absolute and set left/top styles
-		var parentStyles,
-			parent = element.getOffsetParent();
-		if (parent) parentStyles = parent.getStyles('border-top-width', 'border-left-width');
-		var styles = element.getStyles('left', 'top', 'position');
-		if (parent && styles.left == 'auto' || styles.top == 'auto'){
-			var parentPosition = element.getPosition(parent);
-			parentPosition.x = parentPosition.x - (parentStyles['border-left-width'] ? parentStyles['border-left-width'].toInt() : 0);
-			parentPosition.y = parentPosition.y - (parentStyles['border-top-width'] ? parentStyles['border-top-width'].toInt() : 0);
-			element.setPosition(parentPosition);
-		}
-
-		if (styles.position == 'static') element.setStyle('position', 'absolute');
+		element.positionAbsolute();
 
 		// Get begin styles
 		this.endDelta = {x:0, y:0};
@@ -53,3 +42,31 @@ Drag.Move = new Class({
 
 	}
 });
+
+
+Element.implement({
+
+	makeDraggable: function(options){
+		var drag = new Drag.Move(this, options);
+		this.store('dragger', drag);
+		return drag;
+	},
+
+	makeResizable: function(options){
+		var drag = new Drag.Move(this, Object.merge({
+			modifiers: {
+				x: 'width',
+				y: 'height'
+			}
+		}, options));
+
+		this.store('resizer', drag);
+		return drag.addEvent('drag', function(){
+			this.fireEvent('resize', drag);
+		}.bind(this));
+	}
+
+});
+
+
+
