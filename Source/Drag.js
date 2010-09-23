@@ -5,7 +5,7 @@ var Drag = new Class({
 	Implements: [Options, Events],
 
 	options: {
-		snap: 60/*,
+		snap: 6/*,
 		grid: {
 			x: 5,
 			y: 5

@@ -11,7 +11,7 @@ Drag.Drop = new Class({
 	initialize: function(element, droppables, options){
 		this.parent(element, options);
 		element = this.element;
-		this.droppables == $$(droppables);
+		this.droppables = $$(droppables);
 
 		if (this.options.precalculate) this.addEvent('beforeStart', function(){
 			this.positions = this.droppables.map(function(el){
